@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    [Header("Default Jump Power")]
+    public float jumpPower = 6f;
+    [Header("Booleon isGrounded")]
+    public bool isGrounded = false;
+    float posX = 0.0f;
+    Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
