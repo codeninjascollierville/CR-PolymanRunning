@@ -28,12 +28,20 @@ public class PlayerControls : MonoBehaviour
         {
             rb.AddForce(Vector3.up * (jumpPower * rb.mass * rb.gravityScale * 20.0f));
         }
+        if (transform.position.x < posX)
+        {
+            GameOver();
+        }
     }
     void OnCollisionEnter2D (Collision2D collision)
     {
         if (collision.collider.tag == "Ground")
         {
             isGrounded = true;
+        }
+        if (collision.collider.tag == "Enemy")
+        {
+            GameOver();
         }
     }
     void OnCollisionStay2D(Collision2D collision)
@@ -48,6 +56,18 @@ public class PlayerControls : MonoBehaviour
         if (collision.collider.tag == "Ground")
         {
             isGrounded = false;
+        }
+    }
+    void GameOver()
+    {
+        GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+    }
+    void onTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Coin")
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().IncrementScore();
+            Destroy(collision.gameObject);
         }
     }
 }
